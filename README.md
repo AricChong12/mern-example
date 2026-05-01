@@ -20,5 +20,5 @@ Backend: https://mern-example-backend.onrender.com
 
 
 
-Split Architecture + DB (Industrial Grade Cloud Deployment)
+Split Architecture (Industrial Grade Cloud Deployment)
 
