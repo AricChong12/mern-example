@@ -1,35 +1,49 @@
 import { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
+//imports libs
 
 export default function Record() {
+  // Form state (controls input values)
   const [form, setForm] = useState({
     name: "",
     position: "",
     level: "",
   });
+  // Determines if we are creating or updating a record
   const [isNew, setIsNew] = useState(true);
+  // Gets the URL parameter (id from /edit/:id)
   const params = useParams();
+  // Used for redirecting user to another page
   const navigate = useNavigate();
 
+  // Runs when component loads or id changes
   useEffect(() => {
     async function fetchData() {
       const id = params.id?.toString() || undefined;
+      // If no id, we are creating a new record
       if(!id) return;
+      // If id exists, we are editing
       setIsNew(false);
+      // Fetch existing record from backend API
       const response = await fetch(
         `https://mern-example-backend.onrender.com/record/${params.id.toString()}`
       );
+      // Handle fetch error
       if (!response.ok) {
         const message = `An error has occurred: ${response.statusText}`;
         console.error(message);
         return;
       }
+
+      // Convert response to JSON
       const record = await response.json();
+      // If record not found, go back home
       if (!record) {
         console.warn(`Record with id ${id} not found`);
         navigate("/");
         return;
       }
+       // Fill form with existing data (edit mode)
       setForm(record);
     }
     fetchData();
@@ -37,6 +51,7 @@ export default function Record() {
   }, [params.id, navigate]);
 
   // These methods will update the state properties.
+  // Update form state dynamically
   function updateForm(value) {
     return setForm((prev) => {
       return { ...prev, ...value };
@@ -44,12 +59,14 @@ export default function Record() {
   }
 
   // This function will handle the submission.
+  // Handle form submission (create or update)
   async function onSubmit(e) {
     e.preventDefault();
     const person = { ...form };
     try {
       let response;
       if (isNew) {
+        // CREATE new record (POST request)
         // if we are adding a new record we will POST to /record.
         response = await fetch("https://mern-example-backend.onrender.com/record", {
           method: "POST",
@@ -60,6 +77,7 @@ export default function Record() {
         });
       } else {
         // if we are updating a record we will PATCH to /record/:id.
+        // UPDATE existing record (PATCH request)
         response = await fetch(`https://mern-example-backend.onrender.com/record/${params.id}`, {
           method: "PATCH",
           headers: {
@@ -68,14 +86,16 @@ export default function Record() {
           body: JSON.stringify(person),
         });
       }
-
+      // Handle HTTP error
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);
       }
     } catch (error) {
       console.error('A problem occurred adding or updating a record: ', error);
     } finally {
+      // Reset form after submission
       setForm({ name: "", position: "", level: "" });
+      // Redirect back to home page
       navigate("/");
     }
   }
@@ -83,12 +103,16 @@ export default function Record() {
   // This following section will display the form that takes the input from the user.
   return (
     <>
+       {/* Page title */}
       <h3 className="text-lg font-semibold p-4">Create/Update Employee Record</h3>
+      {/* Form starts here */}
       <form
         onSubmit={onSubmit}
         className="border rounded-lg overflow-hidden p-4"
       >
+        {/* Layout container */}
         <div className="grid grid-cols-1 gap-x-8 gap-y-10 border-b border-slate-900/10 pb-12 md:grid-cols-2">
+          {/* Left side info text */}
           <div>
             <h2 className="text-base font-semibold leading-7 text-slate-900">
               Employee Info
@@ -98,8 +122,9 @@ export default function Record() {
               share.
             </p>
           </div>
-
+          {/* Right side form inputs */}
           <div className="grid max-w-2xl grid-cols-1 gap-x-6 gap-y-8 ">
+            {/* Name input */}
             <div className="sm:col-span-4">
               <label
                 htmlFor="name"
@@ -121,6 +146,7 @@ export default function Record() {
                 </div>
               </div>
             </div>
+            {/* Position input */}
             <div className="sm:col-span-4">
               <label
                 htmlFor="position"
@@ -143,10 +169,12 @@ export default function Record() {
               </div>
             </div>
             <div>
+               {/* Radio buttons for level */}
               <fieldset className="mt-4">
                 <legend className="sr-only">Position Options</legend>
                 <div className="space-y-4 sm:flex sm:items-center sm:space-x-10 sm:space-y-0">
                   <div className="flex items-center">
+                    {/* Intern */}
                     <input
                       id="positionIntern"
                       name="positionOptions"
@@ -162,6 +190,7 @@ export default function Record() {
                     >
                       Intern
                     </label>
+                    {/* Junior */}
                     <input
                       id="positionJunior"
                       name="positionOptions"
@@ -171,12 +200,14 @@ export default function Record() {
                       checked={form.level === "Junior"}
                       onChange={(e) => updateForm({ level: e.target.value })}
                     />
+                    
                     <label
                       htmlFor="positionJunior"
                       className="ml-3 block text-sm font-medium leading-6 text-slate-900 mr-4"
                     >
                       Junior
                     </label>
+                    {/* Senior */}
                     <input
                       id="positionSenior"
                       name="positionOptions"
@@ -198,6 +229,7 @@ export default function Record() {
             </div>
           </div>
         </div>
+        {/* Submit button */}
         <input
           type="submit"
           value="Save Employee Record"
@@ -207,3 +239,44 @@ export default function Record() {
     </>
   );
 }
+
+/*
+
+🎨 Tailwind CSS explanation (separately)
+
+This project uses Tailwind CSS.
+
+🧱 Layout classes
+grid → uses CSS grid layout
+grid-cols-1 → 1 column by default
+md:grid-cols-2 → 2 columns on medium screens+
+gap-x-8 → horizontal spacing between columns
+gap-y-10 → vertical spacing between rows
+border-b → bottom border line
+pb-12 → padding bottom
+✍️ Text styling
+text-lg → large text
+text-base → normal size text
+font-semibold → semi-bold text
+text-sm → small text
+text-slate-600 → gray text color
+📦 Form styling
+border → adds border around form
+rounded-lg → rounded corners
+overflow-hidden → prevents content overflow
+p-4 → padding inside form
+🎛 Input styling (in original code)
+ring-1 → thin border effect
+ring-slate-300 → light gray border color
+focus:ring-2 → thicker border when clicked
+focus:ring-indigo-600 → blue highlight on focus
+shadow-sm → small shadow effect
+🔘 Button styling
+inline-flex → flexible button layout
+items-center → vertical centering
+justify-center → horizontal centering
+hover:bg-slate-100 → hover effect
+rounded-md → rounded button edges
+cursor-pointer → shows hand cursor
+
+*/

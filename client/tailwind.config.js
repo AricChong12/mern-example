@@ -11,3 +11,5 @@ export default {
   plugins: [],
 }
 
+//configs tailwind like this use tailwind 3 stable version
+

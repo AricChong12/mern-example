@@ -1,4 +1,5 @@
 import { NavLink } from "react-router-dom";
+//imports libs
 
 export default function Navbar() {
   return (
@@ -15,3 +16,44 @@ export default function Navbar() {
     </div>
   );
 }
+
+/*
+
+Tailwind explained:
+flex → makes items horizontal (flexbox)
+justify-between → pushes items to left and right edges
+items-center → vertically centers items
+mb-6 → adds margin-bottom (spacing below navbar)
+
+Tailwind:
+h-10 → height = 2.5rem (controls logo size)
+inline → keeps it inline with text layout
+
+
+🎨 Tailwind breakdown
+Layout
+inline-flex → button behaves like inline but supports flex layout
+items-center → vertically centers text
+justify-center → centers text horizontally
+Text & spacing
+text-md → medium text size
+font-medium → medium boldness
+px-3 → padding left/right
+h-9 → fixed height
+Shape
+rounded-md → slightly rounded corners
+Border & background
+border → adds border
+border-input → theme-based border color
+bg-background → background color
+hover:bg-slate-100 → light gray on hover
+Interaction / accessibility
+transition-colors → smooth color change
+focus-visible:outline-none → removes default outline
+focus-visible:ring-2 → adds focus ring when tabbing
+disabled:* → styles when button is disabled
+UX improvement
+whitespace-nowrap → prevents text from wrapping
+
+
+*/
