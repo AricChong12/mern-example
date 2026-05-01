@@ -13,4 +13,12 @@ I followed a tutorial to build an Express.js API connected to MongoDB. The code 
 
 
 ## Website Deployment
+Frontend: https://mern-example-demo-learn.netlify.app/
+
+
+Backend: https://mern-example-backend.onrender.com
+
+
+
+Split Architecture + DB
 
