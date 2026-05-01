@@ -1,0 +1,6 @@
+MongoDB
+-employees
+    -records
+        -_id, name, position, level
+        -_id, name, position, level
+        -_id, name, position, level

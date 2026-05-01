@@ -1,0 +1,42 @@
+[
+  {
+    "name": "John Doe",
+    "position": "Frontend Developer",
+    "level": "Junior"
+  },
+  {
+    "name": "Sarah Lim",
+    "position": "UI/UX Designer",
+    "level": "Senior"
+  },
+  {
+    "name": "Ahmad Faiz",
+    "position": "Backend Developer",
+    "level": "Mid"
+  },
+  {
+    "name": "Emily Tan",
+    "position": "Full Stack Developer",
+    "level": "Senior"
+  },
+  {
+    "name": "Jason Lee",
+    "position": "DevOps Engineer",
+    "level": "Mid"
+  },
+  {
+    "name": "Nur Aisyah",
+    "position": "QA Engineer",
+    "level": "Junior"
+  },
+  {
+    "name": "Daniel Wong",
+    "position": "Software Engineer",
+    "level": "Mid"
+  },
+  {
+    "name": "Priya Kumar",
+    "position": "Product Manager",
+    "level": "Senior"
+  }
+]
