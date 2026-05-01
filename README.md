@@ -22,3 +22,6 @@ Backend: https://mern-example-backend.onrender.com
 
 Split Architecture (Industrial Grade Cloud Deployment)
 
+
+✨ Tips: Open the links of Backend first then Frontend, keep both tabs opened
+
